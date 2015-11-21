@@ -24,8 +24,8 @@ function onDeviceReady() {
         console.log(entries);
         for (i=0; i < entries.length; i++) {
         	if (entries[i].isFile) {
-        		$("#notes").append('<li><a href="text.html" class="ui-btn"><i class="fa fa-align-center fa-sticky-note"></i>'+ 
-        			entries[i].name.slice(0,-4) + 
+        		$("#notes").append('<li><a href="edit-note.html?name='+ entries[i].name.slice(0,-4) + '" data-ajax="false" class="ui-btn"><i class="fa fa-align-center fa-sticky-note"></i>'+ 
+        			entries[i].name.slice(0,-4).replace(/_/g," ") + 
         			"</a></li>");
         	}
         }
@@ -49,17 +49,4 @@ function writeLog(str) {
 		fileWriter.write(blob);
 		console.log("ok, in theory i worked");
 	}, fail);
-}
-
-function justForTesting() {
-	logOb.file(function(file) {
-		var reader = new FileReader();
-
-		reader.onloadend = function(e) {
-			console.log(this.result);
-			document.querySelector("#content").innerHTML= this.result;
-		};
-		reader.readAsText(file);
-	}, fail);
-
 }
