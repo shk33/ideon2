@@ -8,7 +8,6 @@ function fail(e) {
 	console.dir(e);
 }
 
-
 function onDeviceReady() {
 
 	window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
@@ -24,11 +23,23 @@ function onDeviceReady() {
         console.log(entries);
         for (i=0; i < entries.length; i++) {
         	if (entries[i].isFile) {
-        		$("#notes").append('<li><a href="edit-note.html?name='+ entries[i].name.slice(0,-4) + '" data-ajax="false" class="ui-btn"><i class="fa fa-align-center fa-sticky-note"></i>'+ 
-        			entries[i].name.slice(0,-4).replace(/_/g," ") + 
-        			"</a></li>");
+            html = "<li>" +
+              '<a href="edit-note.html?name=' + entries[i].name.slice(0,-4) + '" class="ui-btn ui-btn-b" data-ajax="false">' +
+                '<h2>' + entries[i].name.slice(0,-4).replace(/_/g," ") +'</h2>' +
+              '</a>' +
+              '<p class="ui-li-aside">' +
+                '<button class="ui-tag ui-link delete" style="background-color: red;" data-name="' + entries[i].name.slice(0,-4)  +'" >' +
+                  '<strong>Eliminar</strong>' +
+                '</button>' +
+              '</p>' +
+            '</li>';  
+        		$("#notes").append(html);
         	}
         }
+        $('.delete').on('touchend', function (e) {
+          $(this).data('name');
+          alert($(this).data('name'));
+        });
       },
       function (err) {
         console.log(err);
