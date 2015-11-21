@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reminder App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="css/jqeury.mobile.theme.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile.min.css" />
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/nightly.css" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic|Oswald:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.mobile.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/nightly.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+
+    <div data-role="page" data-theme='a' id="home">
+        <div class="ui-panel-wrapper">
+            <div data-role="header" data-tap-toggle="false" data-theme="a" role="banner" class="ui-header ui-bar-a">
+                <h1 class="header-title ui-title" role="heading" aria-level="1">Reminder App</h1>
+            </div>
+            <div data-role="content" class="ui-content" role="main">
+
+                <ul id="notes" data-role="listview" data-inset="false" data-icon="false" data-divider-theme="a" class="ui-listview">
+                    <li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-a ui-first-child">Notas</li>
+                </ul>
+                <a href="#new-note" data-ajax="true" class="ui-btn ui-btn-inline" style="color:green">
+                    <i class="fa fa-plus-square"></i>
+                    Nueva Nota
+                </a>
+                <button id="delete-note" data-role="none" class="ui-btn ui-btn-inline" style="color:red"><i class="fa fa-times"></i>
+                    Eliminar Nota
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" data-theme='a' id="new-note">
+        <div class="ui-panel-wrapper">
+            <div data-role="header" data-tap-toggle="false" data-theme="a" role="banner" class="ui-header ui-bar-a">
+                <h1 class="header-title ui-title" role="heading" aria-level="1">Nueva Nota</h1>
+            </div>
+            <div data-role="content" class="ui-content" role="main">
+                <ul data-role="listview" class="ui-listview">
+                    <li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-inherit ui-first-child">Crear Nueva Nota</li>
+                    <li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit">
+                        <label>Nombre:</label>
+                        <div class="ui-input-text ui-body-inherit ui-shadow-inset ui-input-has-clear">
+                        <input data-corners="false" type="text" name="name" id="new-note-name" data-clear-btn="true" placeholder="Type text...">
+                        <a href="#" tabindex="-1" aria-hidden="true" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a></div>
+                    </li>
+                    <li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit ui-last-child">
+                        <label>Contenido:</label>
+                        <textarea name="content" id="new-note-content" data-corners="false" cols="40" rows="20" placeholder="Texarea" class="ui-input-text ui-shadow-inset ui-body-inherit ui-textinput-autogrow" style="height:90px;"></textarea>
+                    </li>
+                </ul>
+                <button id="save-new" data-role="none" class="ui-btn ui-btn-inline" style="color:green"><i class="fa fa-save"></i>
+                    Guardar Nota
+                </button>
+                <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop">
+                    <button data-role="none" class="nightly-button" style="color:red">
+                        <i class="fa fa-times"></i> Cancelar
+                    </button>
+                </a>
+                <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" data-corners="false" data-shadow="false" data-border="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b">
+                        <h2 class="header-title">Cancelar</h2> </div>
+                    <div role="main" class="ui-content">
+                        <h3 class="ui-title">¿Realmente deseas salir?</h3>
+                        <a href="#home">
+                            <button data-role="none" class="nightly-button" data-theme="b">Sí</button>
+                        </a>
+                        <a href="#" data-rel="back" data-transition="flow">
+                            <button data-role="none" class="nightly-button" data-theme="b">No</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
