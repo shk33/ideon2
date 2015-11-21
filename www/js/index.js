@@ -18,7 +18,6 @@ function onDeviceReady() {
 			logOb = file;
 			writeLog("App started");			
 		});
-
 		reader = dir.createReader();
     reader.readEntries(
       function (entries) {
@@ -35,43 +34,6 @@ function onDeviceReady() {
         console.log(err);
       }
     );
-
-	});
-	
-	document.querySelector("#save-new").addEventListener("touchend", function(e) {
-		window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
-			console.log("got main dir",dir);
-			var name = $("#new-note-name").val().replace(/ /g,"_");
-			console.log(name + ".txt");
-			dir.getFile(name + ".txt", {create:true}, function(file) {
-				logOb = file;
-				console.log($("#new-note-content").val());
-				writeLog($("#new-note-content").val());			
-			});
-			$.mobile.changePage("#home");
-		});
-
-	}, false);
-
-	$(document).on( "pagebeforecreate", "#home", function( e ) {  
-		window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
-			reader = dir.createReader();
-	    reader.readEntries(
-	      function (entries) {
-	        console.log(entries);
-	        for (i=0; i < entries.length; i++) {
-	        	if (entries[i].isFile) {
-	        		$("#notes").append('<li><a href="text.html" class="ui-btn"><i class="fa fa-align-center fa-sticky-note"></i>'+ 
-	        			entries[i].name.slice(0,-4) + 
-	        			"</a></li>");
-	        	}
-	        }
-	      },
-	      function (err) {
-	        console.log(err);
-	      }
-	    );
-		});
 	});
 }
 
