@@ -33,7 +33,6 @@ function onDeviceReady() {
 				console.log($("#new-note-content").val());
 				writeLog($("#new-note-content").val());			
 			});
-			document.location.href = "index.html";
 		});
 
 	}, false);
@@ -46,11 +45,13 @@ function writeLog(str) {
 	console.log("going to log "+log);
 	logOb.createWriter(function(fileWriter) {
 		
-		fileWriter.seek(fileWriter.length);
+		// fileWriter.seek(fileWriter.length);
+		fileWriter.seek(0);
 		
 		var blob = new Blob([log], {type:'text/plain'});
 		fileWriter.write(blob);
 		console.log("ok, in theory i worked");
+		document.location.href = "index.html";
 	}, fail);
 }
 
