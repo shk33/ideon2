@@ -28,17 +28,35 @@ function onDeviceReady() {
                 '<h2>' + entries[i].name.slice(0,-4).replace(/_/g," ") +'</h2>' +
               '</a>' +
               '<p class="ui-li-aside">' +
-                '<button class="ui-tag ui-link delete" style="background-color: red;" data-name="' + entries[i].name.slice(0,-4)  +'" >' +
-                  '<strong>Eliminar</strong>' +
-                '</button>' +
+                '<a class="delete-btn" href="#popupDialog"' +
+                    'data-rel="popup" data-position-to="window" data-transition="pop" data-name="' + entries[i].name.slice(0,-4) + '" > ' +
+                  '<button class="ui-tag ui-link" style="background-color: red;" >' +
+                    '<strong>Eliminar</strong>' +
+                  '</button>' +
+                '</a>' +
               '</p>' +
             '</li>';  
         		$("#notes").append(html);
         	}
         }
-        $('.delete').on('touchend', function (e) {
-          $(this).data('name');
-          alert($(this).data('name'));
+        $('.delete-btn').on('touchend', function (e) {
+          var name = $(this).data('name') + ".txt";
+          $('#delete').attr('data-name', name);
+        });
+        $('#delete').on('touchend', function (e) {
+          e.preventDefault();
+          var name = $(this).data('name');
+          console.log("eventoooo");
+          window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) {
+            console.log("eventoooo dir");
+            console.log(name);
+            dir.getFile(name, {create:false }, function(file) {
+              file.remove(function() {
+                console.log('File removed.' + name);
+                document.location.href = "index.html";
+              }, fail);
+            });
+          });
         });
       },
       function (err) {
