@@ -150,13 +150,21 @@ module.exports = [
             "cordova"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-blob-constructor-polyfill/Blob.js",
+        "id": "cordova-plugin-blob-constructor-polyfill.blob-constructor",
+        "merges": [
+            "window"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.0.0",
-    "org.apache.cordova.file": "1.3.3"
+    "org.apache.cordova.file": "1.3.3",
+    "cordova-plugin-blob-constructor-polyfill": "1.0.2"
 }
 // BOTTOM OF METADATA
 });

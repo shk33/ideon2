@@ -2,6 +2,7 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
 var logOb;
+var filename;
 
 function fail(e) {
 	console.log("FileSystem Error");
@@ -9,8 +10,10 @@ function fail(e) {
 }
 
 function onDeviceReady() {
-	
-	var filename = getUrlVars()["name"];
+	window.requestFileSystem = window.requestFileSystem ||
+                             window.webkitRequestFileSystem;
+                             
+	filename = getUrlVars()["name"];
 	var title = filename.replace(/_/g," ");
 	$("#new-note-name").val(title);
 	window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
@@ -27,12 +30,28 @@ function onDeviceReady() {
 		window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
 			console.log("got main dir",dir);
 			var name = $("#new-note-name").val().replace(/ /g,"_");
-			console.log(name + ".txt");
-			dir.getFile(name + ".txt", {create:false}, function(file) {
-				logOb = file;
-				console.log($("#new-note-content").val());
-				writeLog($("#new-note-content").val());			
-			});
+			console.log(filename);
+			console.log(name);
+			if (filename == name) {
+				dir.getFile(name + ".txt", {create:false}, function(file) {
+					logOb = file;
+					console.log($("#new-note-content").val());
+					writeLog($("#new-note-content").val());			
+				});
+			} else {
+				// Eliminate old file
+				dir.getFile(filename + ".txt", {create:false }, function(file) {
+          file.remove(function() {
+            console.log('File removed.' + name);
+          }, fail);
+        });
+				// Create new one
+				dir.getFile(name + ".txt", {create:true}, function(file) {
+					logOb = file;
+					console.log($("#new-note-content").val());
+					writeLog($("#new-note-content").val());			
+				});
+			}
 		});
 
 	}, false);
@@ -51,7 +70,9 @@ function writeLog(str) {
 		var blob = new Blob([log], {type:'text/plain'});
 		fileWriter.write(blob);
 		console.log("ok, in theory i worked");
-		document.location.href = "index.html";
+		setTimeout(function() {
+			document.location.href = "index.html";
+    }, 5000);
 	}, fail);
 }
 

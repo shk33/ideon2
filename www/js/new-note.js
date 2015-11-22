@@ -9,7 +9,9 @@ function fail(e) {
 }
 
 function onDeviceReady() {
-	
+	window.requestFileSystem = window.requestFileSystem ||
+                             window.webkitRequestFileSystem;
+
 	document.querySelector("#save-new").addEventListener("touchend", function(e) {
 		window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(dir) {
 			console.log("got main dir",dir);
@@ -31,11 +33,13 @@ function writeLog(str) {
 	console.log("going to log "+log);
 	logOb.createWriter(function(fileWriter) {
 		
-		fileWriter.seek(fileWriter.length);
+		fileWriter.seek(0);
 		
 		var blob = new Blob([log], {type:'text/plain'});
 		fileWriter.write(blob);
-		console.log("ok, in theory i worked");
-		document.location.href = "index.html";
+		console.log(log);
+		setTimeout(function() {
+			document.location.href = "index.html";
+    }, 5000);
 	}, fail);
 }

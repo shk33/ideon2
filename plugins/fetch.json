@@ -14,5 +14,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-blob-constructor-polyfill": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-blob-constructor-polyfill"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
